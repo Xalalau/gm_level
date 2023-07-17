@@ -61,4 +61,4 @@ local function CreateEvent()
     end)
 end
 
-GLVL.Event:SetCall(eventName, CreateEvent)
+GLVL.Event:OnEnabled(eventName, CreateEvent)

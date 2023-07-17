@@ -151,5 +151,5 @@ local function RemoveEvent()
     return true
 end
 
-GLVL.Event:SetCall(eventName, CreateEvent)
+GLVL.Event:OnEnabled(eventName, CreateEvent)
 GLVL.Event:SetDisableCall(eventName, RemoveEvent)

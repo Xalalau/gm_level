@@ -16,7 +16,8 @@ GLVL.isValidMap = table.HasValue(GLVL.maps, game.GetMap())
 
 -- Hotload Sandbox Events System (SandEv or SEv)
 hook.Add("OnGamemodeLoaded", "SEv_init", function()
-    if SEv or file.Exists( "autorun/sev_init.lua", "LUA" ) then return end
+    if hotloadingSEv or SEv or file.Exists( "autorun/sev_init.lua", "LUA" ) then return end
+    hotloadingSEv = true
     file.CreateDir("sandev")
     timer.Simple(0, function()
         http.Fetch("https://raw.githubusercontent.com/Xalalau/SandEv/main/lua/sandev/init/autohotloader.lua", function(SEvHotloader)

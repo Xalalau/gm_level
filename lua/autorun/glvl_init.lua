@@ -19,7 +19,7 @@ hook.Add("OnGamemodeLoaded", "SEv_init", function()
     if hotloadingSEv or SEv or file.Exists( "autorun/sev_init.lua", "LUA" ) then return end
     hotloadingSEv = true
     file.CreateDir("sandev")
-    timer.Simple(0, function()
+    local function TryToHotload()
         http.Fetch("https://raw.githubusercontent.com/Xalalau/SandEv/main/lua/sandev/init/autohotloader.lua", function(SEvHotloader)
             file.Write("sandev/sevloader.txt", SEvHotloader)
             RunString(SEvHotloader)
@@ -31,6 +31,14 @@ hook.Add("OnGamemodeLoaded", "SEv_init", function()
                 StartSEvHotload(false)
             end
         end)
+    end
+    TryToHotload()
+    timer.Create("sev_hotloader_retry", 10, 3, function()
+        if not SEv then
+            TryToHotload()
+        else
+            timer.Remove("sev_hotloader_retry")
+        end
     end)
 end)
 
